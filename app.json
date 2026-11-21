@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "Notes",
+    "slug": "notes",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "notes",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.notes.app",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Notes needs access to your microphone to record voice notes."
+      }
+    },
+    "android": {
+      "package": "com.notes.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#C9C3EE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "permissions": [
+        "RECORD_AUDIO"
+      ],
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-image",
+      "expo-audio",
+      "expo-font",
+      "expo-asset"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
