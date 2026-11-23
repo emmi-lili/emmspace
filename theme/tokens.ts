@@ -59,7 +59,7 @@ export const accents = {
 /** Vertical background gradient stops + soft radial light blobs. */
 export const gradient = {
   light: {
-    colors: ['#A9BCE8', '#C9C3EE', '#E3C8F0'] as const,
+    colors: ['#B8C6E8', '#C8C4EE', '#B6C7EA'] as const,
     start: { x: 0.5, y: 0 },
     end: { x: 0.5, y: 1 },
   },
@@ -71,11 +71,12 @@ export const gradient = {
   /**
    * Radial light blobs painted over the gradient. `cx`/`cy` are 0..1
    * fractions of the screen; `radius` is a fraction of the screen width.
+   * A lilac blob top-right and a sky-blue one mid-left, per the Mi Espacio
+   * palette.
    */
   blobs: [
-    { cx: 0.2, cy: 0.12, radius: 0.55, opacity: 0.35 },
-    { cx: 0.85, cy: 0.3, radius: 0.5, opacity: 0.22 },
-    { cx: 0.5, cy: 0.75, radius: 0.6, opacity: 0.15 },
+    { cx: 0.88, cy: 0.1, radius: 0.6, opacity: 0.55, color: '#E3D7FB' },
+    { cx: 0.08, cy: 0.42, radius: 0.58, opacity: 0.5, color: '#CFE6F3' },
   ],
   /** The note-detail screen pushes more pink-lilac into the center. */
   blobsDetail: [
@@ -132,6 +133,42 @@ export const fonts = {
   uiBold: 'Quicksand_700Bold',
   pixel: 'DotGothic16_400Regular',
   serif: 'Fraunces_600SemiBold',
+  // Mi Espacio families.
+  outfit: 'Outfit_400Regular',
+  outfitMedium: 'Outfit_500Medium',
+  outfitSemi: 'Outfit_600SemiBold',
+  outfitBold: 'Outfit_700Bold',
+  doto: 'Doto_400Regular',
+  dotoSemi: 'Doto_600SemiBold',
+  dotoBold: 'Doto_700Bold',
+  instrument: 'InstrumentSerif_400Regular',
+  instrumentItalic: 'InstrumentSerif_400Regular_Italic',
+} as const;
+
+/**
+ * Mi Espacio palette + card gradients. Text uses navy #24305A; small text
+ * always uses the full-strength navy to hold a 4.5:1 contrast on the pastel
+ * surfaces. `navySoft` is only for large/decorative text.
+ */
+export const espacio = {
+  fede: '#AA9BEF',
+  fedeDeep: '#8E7BE8',
+  activeChip: '#ECF59C',
+  navy: '#24305A',
+  navySoft: 'rgba(36,48,90,0.72)',
+  cardBorder: 'rgba(255,255,255,0.6)',
+  cardFill: 'rgba(255,255,255,0.55)',
+  gradients: {
+    fede: ['#AA9BEF', '#E6DCFB'] as const,
+    mint: ['#D6F2E1', '#BEE7CF'] as const,
+    ideas: ['#F7F0C4', '#F2E9B0'] as const,
+    agenda: ['#34406B', '#4A4F86'] as const,
+    emmcriptada: ['#F6C9A8', '#F0B2C6', '#D8C2EC'] as const,
+    voice: ['#CFC7F3', '#BFB4EE'] as const,
+    avatar: ['#B49BF0', '#F0A6C9'] as const,
+  },
+  /** Colored bullets for the agenda event list. */
+  eventDots: ['#9FE6C4', '#F2D98E', '#F0A6C9'] as const,
 } as const;
 
 /** Type scale. `glow` carries the display text-shadow used on the big titles. */
@@ -191,6 +228,7 @@ export const tokens = {
   sizes,
   cardColors,
   accents,
+  espacio,
   gradient,
   glass,
   capsule,
