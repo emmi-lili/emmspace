@@ -56,6 +56,8 @@ export default function RootLayout() {
                 presentation: 'card',
               }}
             />
+            <Stack.Screen name="fede" options={{ animation: 'slide_from_right' }} />
+            <Stack.Screen name="agenda" options={{ animation: 'slide_from_right' }} />
           </Stack>
         </QueryClientProvider>
       </SafeAreaProvider>

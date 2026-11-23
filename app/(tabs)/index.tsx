@@ -1,85 +1,49 @@
 /**
- * "Your Notes" home screen: glowing header, filter chips and a 2-column masonry
- * grid of note cards, with the floating action capsule anchored at the bottom.
+ * "Mi Espacio" home: the glowing title + greeting, horizontally scrolling
+ * filter chips, a two-column bento grid (notes, to-dos, agenda and the Fede
+ * assistant) and a floating dock. The grid is cut off by the bottom edge to
+ * suggest scrolling.
  */
-import { useCallback, useMemo } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { useCallback, useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { FlashList } from '@shopify/flash-list';
 import { useRouter } from 'expo-router';
 import { GradientBackground } from '@/components/ui/GradientBackground';
-import { AnimatedEntrance } from '@/components/ui/AnimatedEntrance';
-import { HomeHeader } from '@/components/home/HomeHeader';
-import { FloatingActions } from '@/components/home/FloatingActions';
-import { NoteCard } from '@/components/cards';
-import { useNotes } from '@/hooks/useNotes';
-import { useUIStore } from '@/hooks/useUIStore';
-import { filterNotes } from '@/lib/filterNotes';
-import { fonts, spacing } from '@/theme/tokens';
-import { type Note } from '@/types/note';
+import {
+  MiEspacioHeader,
+  BentoGrid,
+  EspacioDock,
+  type EspacioFilter,
+} from '@/components/espacio';
+import { spacing } from '@/theme/tokens';
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { data: notes, isLoading } = useNotes();
-  const activeFilter = useUIStore((s) => s.activeFilter);
-  const setFilter = useUIStore((s) => s.setFilter);
+  const [filter, setFilter] = useState<EspacioFilter>('all');
 
-  const visible = useMemo(
-    () => filterNotes(notes ?? [], activeFilter),
-    [notes, activeFilter],
-  );
-
-  const openNote = useCallback(
-    (id: string) => router.push(`/note/${id}`),
-    [router],
-  );
-
-  const renderItem = useCallback(
-    ({ item, index }: { item: Note; index: number }) => (
-      <AnimatedEntrance index={index} style={styles.cell}>
-        <NoteCard note={item} onPress={() => openNote(item.id)} />
-      </AnimatedEntrance>
-    ),
-    [openNote],
-  );
+  const openFede = useCallback(() => router.push('/fede'), [router]);
+  const openAgenda = useCallback(() => router.push('/agenda'), [router]);
 
   return (
     <GradientBackground variant="home">
-      <View style={[styles.root, { paddingTop: insets.top + spacing.sm }]}>
-        <FlashList
-          // Remounting on filter change replays the staggered entrance.
-          key={activeFilter}
-          data={visible}
-          numColumns={2}
-          masonry
-          optimizeItemArrangement
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          ListHeaderComponent={
-            <HomeHeader
-              activeFilter={activeFilter}
-              onFilterChange={setFilter}
-            />
-          }
-          ListEmptyComponent={
-            isLoading ? (
-              <View style={styles.empty}>
-                <ActivityIndicator color="#FFFFFF" />
-              </View>
-            ) : (
-              <View style={styles.empty}>
-                <Text style={styles.emptyText}>No notes here yet.</Text>
-              </View>
-            )
-          }
-          contentContainerStyle={{
-            paddingHorizontal: spacing.md,
-            paddingBottom: insets.bottom + 140,
-          }}
+      <View style={styles.root}>
+        <ScrollView
           showsVerticalScrollIndicator={false}
-        />
-        <FloatingActions />
+          contentContainerStyle={{
+            paddingTop: insets.top + spacing.sm,
+            paddingBottom: insets.bottom + 128,
+          }}
+        >
+          <MiEspacioHeader activeFilter={filter} onFilterChange={setFilter} />
+          <BentoGrid
+            activeFilter={filter}
+            onOpenFede={openFede}
+            onOpenAgenda={openAgenda}
+          />
+        </ScrollView>
+
+        <EspacioDock onOpenFede={openFede} />
       </View>
     </GradientBackground>
   );
@@ -87,18 +51,4 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  cell: {
-    paddingHorizontal: spacing.sm,
-    paddingBottom: spacing.md,
-  },
-  empty: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: spacing.huge,
-  },
-  emptyText: {
-    fontFamily: fonts.uiRegular,
-    fontSize: 15,
-    color: 'rgba(255,255,255,0.85)',
-  },
 });
