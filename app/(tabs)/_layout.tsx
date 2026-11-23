@@ -13,7 +13,7 @@ export default function TabsLayout() {
         tabBarStyle: { display: 'none' },
       }}
     >
-      <Tabs.Screen name="index" options={{ title: 'Your Notes' }} />
+      <Tabs.Screen name="index" options={{ title: 'emmspace' }} />
     </Tabs>
   );
 }

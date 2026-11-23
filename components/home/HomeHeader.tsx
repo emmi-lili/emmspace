@@ -44,7 +44,7 @@ export function HomeHeader({
         ]}
         accessibilityRole="header"
       >
-        Your Notes
+        emmspace
       </Text>
 
       <ScrollView
