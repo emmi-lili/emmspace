@@ -188,3 +188,41 @@ export function CheckIcon({ size = 16, color = '#FFFFFF', strokeWidth = 2.4 }: I
     </Svg>
   );
 }
+
+/** Four-point sparkle, line style. Used for the header mark and the Fede dock. */
+export function SparkleIcon({ size = 24, color = '#FFFFFF', strokeWidth = 2 }: IconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24">
+      <Path
+        d="M12 3c.7 3.6 1.7 4.6 5.3 5.3-3.6.7-4.6 1.7-5.3 5.3-.7-3.6-1.7-4.6-5.3-5.3C10.3 7.6 11.3 6.6 12 3Z"
+        transform="translate(0 1.6)"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <Path
+        d="M18.5 15c.3 1.6.8 2.1 2.5 2.5-1.7.4-2.2.9-2.5 2.5-.3-1.6-.8-2.1-2.5-2.5 1.7-.4 2.2-.9 2.5-2.5Z"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </Svg>
+  );
+}
+
+export function ArrowRightIcon({ size = 18, color = '#24305A', strokeWidth = 2 }: IconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24">
+      <Path
+        d="M4 12h15M13 6l6 6-6 6"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </Svg>
+  );
+}
